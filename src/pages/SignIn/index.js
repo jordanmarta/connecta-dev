@@ -12,8 +12,10 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/styles";
 import { useNavigate } from "react-router-dom";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
-import axios from "axios";
+import authService from "../../services/authService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,24 +53,46 @@ function CopyRight() {
   );
 }
 
-function handleSignIn() {
-  axios
-    .get("https://api.github.com/users/jordanmarta")
-    .then((response) => {
-      const user = response.data.login;
-      console.log(user);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
-
 function SignIn() {
   const classes = useStyles();
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
+
+  const { vertical, horizontal, open } = state;
+
   const navigate = useNavigate();
+
+  const handleClick = (newState) => () => {
+    console.log("handleclick");
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+  async function handleSignIn() {
+    try {
+      await authService.signIn(email, password);
+      //200
+      navigate("/");
+    } catch (error) {
+      setErrorMessage(error.response.data.message);
+      setState({ open: true, vertical: "bottom", horizontal: "right" });
+      handleClick();
+    }
+  }
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
   return (
     <Grid container className={classes.root}>
       <Grid
@@ -143,6 +167,18 @@ function SignIn() {
             >
               Entrar
             </Button>
+            <Snackbar
+              anchorOrigin={{ vertical, horizontal }}
+              open={open}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              message={"teste"}
+              key={vertical + horizontal}
+            >
+              <Alert onClose={handleClose} severity="error">
+                {errorMessage}
+              </Alert>
+            </Snackbar>
             <Grid container>
               <Grid item>
                 <Link>Esqueceu sua senha?</Link>
