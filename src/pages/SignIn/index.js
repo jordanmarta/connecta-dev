@@ -1,21 +1,13 @@
 import React, { useState } from "react";
-import {
-  Avatar,
-  Box,
-  Grid,
-  TextField,
-  Typography,
-  Button,
-  Link,
-  FormHelperText,
-} from "@material-ui/core";
+import { Avatar, Box, Grid, TextField, Typography, Button, Link } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/styles";
 import { useNavigate } from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import { useSelector, useDispatch } from "react-redux";
 
-import authService from "../../services/authService";
+import signIn from "../../actions/accountAction";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,11 +52,19 @@ function SignIn() {
     vertical: "top",
     horizontal: "center",
   });
-
   const { vertical, horizontal, open } = state;
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
+
+  const account = useSelector((state) => state);
+  console.log(account);
 
   const navigate = useNavigate();
 
+  // funções relativas ao SnackBar
   const handleClick = (newState) => () => {
     console.log("handleclick");
   };
@@ -75,8 +75,7 @@ function SignIn() {
 
   async function handleSignIn() {
     try {
-      await authService.signIn(email, password);
-      //200
+      await dispatch(signIn(email, password));
       navigate("/");
     } catch (error) {
       setErrorMessage(error.response.data.message);
@@ -88,10 +87,6 @@ function SignIn() {
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   return (
     <Grid container className={classes.root}>

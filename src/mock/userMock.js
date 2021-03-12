@@ -18,6 +18,7 @@ mock.onPost("/api/home/login").reply((config) => {
     id: 1,
     name: "Darth Vader",
     email: "darthvader@empire.com",
+    avatar: "/images/avatars/avatar_1.jpg",
   };
 
   return [200, { user }];
