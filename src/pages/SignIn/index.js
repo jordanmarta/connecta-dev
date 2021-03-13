@@ -7,7 +7,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { useSelector, useDispatch } from "react-redux";
 
-import signIn from "../../actions/accountAction";
+import { signIn } from "../../actions/accountAction";
 
 const useStyles = makeStyles((theme) => ({
   root: {
