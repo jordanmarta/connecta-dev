@@ -2,10 +2,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Box, Button } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 
 import Account from "./Account";
 import Notifications from "./Notifications";
+import WritePost from "./WritePost";
 
 const useStyles = makeStyles({
   appBar: {
@@ -35,9 +36,7 @@ function Header() {
         <img src="/images/logo.png" alt="logo" className={classes.img} />
         <div className={classes.grow} />
         <div className={classes.userSection}>
-          <Button variant="contained" color="primary" className={classes.button}>
-            Novo Post
-          </Button>
+          <WritePost />
           <Box ml={2}>
             <Notifications />
           </Box>
