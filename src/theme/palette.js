@@ -1,6 +1,6 @@
 import { colors } from "@material-ui/core";
 
-export default {
+const palette = {
   primary: {
     dark: colors.indigo["A700"],
     main: colors.indigo["A400"],
@@ -12,3 +12,5 @@ export default {
     light: colors.orange["A200"],
   },
 };
+
+export default palette;

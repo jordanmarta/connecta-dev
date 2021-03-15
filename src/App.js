@@ -19,9 +19,9 @@ function App() {
         <BrowserRouter>
           <Auth>
             <Routes>
-              <Route path="/" element={<Home />} />
               <GuestRoute path="/sign-in" element={<SignIn />} />j
-              <Route path="*" element={<h1>Not Found 404!</h1>} />j
+              <Route path="//*" element={<Home />} />{" "}
+              {/* tudo que vier depois de barra direciona para Home */}
             </Routes>
           </Auth>
         </BrowserRouter>
