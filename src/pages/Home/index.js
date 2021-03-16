@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router";
 import Header from "./Header";
 import NewPost from "../Post/New";
 import Feed from "../Feed";
+import Post from "../Post";
 
 const useStyles = makeStyles({
   root: {
@@ -32,6 +33,7 @@ function Home() {
           <Route path="/" element={<Feed />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/post/new" element={<NewPost />} />
+          <Route path="/post/:slug" element={<Post />} />
           <Route path="*" element={<h1>Not Found 404!</h1>} />j
         </Routes>
       </main>

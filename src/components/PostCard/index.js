@@ -1,15 +1,17 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
+import CardActionArea from "@material-ui/core/CardActionArea";
 import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import { Avatar, Card, CardActionArea } from "@material-ui/core";
-
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import BookmarkIcon from "@material-ui/icons/Bookmark";
 import MessageIcon from "@material-ui/icons/Message";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     height: 300,
-    widht: "100%",
+    width: "100%",
     maxWidth: "100%",
   },
   content: {
@@ -42,22 +44,27 @@ const useStyles = makeStyles((theme) => ({
 
 function PostCard({ post }) {
   const classes = useStyles();
+  const navigate = useNavigate();
+
+  const handlePostClick = () => {
+    navigate(`/post/${post.slug}`);
+  };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={handlePostClick}>
       <CardHeader
-        avatar={<Avatar src={post.author.avatar} />}
+        avatar={<Avatar src={post.author?.avatar} />}
         title={<Typography variant="h6">{post.title}</Typography>}
         subheader={
           <div className={classes.subheader}>
             <Typography variant="caption" className={classes.caption}>
-              {"Avaliado por"}
+              Escrito por
             </Typography>
             <Typography variant="subtitle2" className={classes.caption}>
               {post.author.name}
             </Typography>
             <Typography variant="caption" className={classes.caption}>
-              {post.date}
+              {moment(post.date).fromNow()}
             </Typography>
           </div>
         }
@@ -73,18 +80,23 @@ function PostCard({ post }) {
       <CardActions disableSpacing>
         <IconButton aria-label="like">
           <FavoriteIcon />
-          <Typography style={{ cursor: "pointer" }} color="textSecondary" variant="body2">
-            {"10"}
+          <Typography
+            style={{ cursor: "pointer" }}
+            color="textSecondary"
+            variant="body2"
+          >
+            {post.likes}
           </Typography>
         </IconButton>
         <IconButton aria-label="comment">
           <MessageIcon />
-          <Typography className={classes.reactiopn} color="textSecondary" variant="body2">
-            {"30"}
+          <Typography
+            className={classes.reactions}
+            color="textSecondary"
+            variant="body2"
+          >
+            {post.comments}
           </Typography>
-        </IconButton>
-        <IconButton aria-label="favorite" className={classes.favorite}>
-          <BookmarkIcon />
         </IconButton>
       </CardActions>
     </Card>
