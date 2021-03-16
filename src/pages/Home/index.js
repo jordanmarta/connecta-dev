@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Route, Routes } from "react-router";
 
-import Header from "./components/Header";
+import Header from "./Header";
 import NewPost from "../Post/New";
 import Feed from "../Feed";
 
@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
   },
   main: {
-    height: "100vh",
+    height: "calc(100vh - 64px)",
     padding: 24,
   },
   toolbar: {

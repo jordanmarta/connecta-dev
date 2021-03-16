@@ -5,7 +5,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import { signOut } from "../../../../actions/accountAction";
+import { signOut } from "../../../actions/accountAction";
 
 function Account() {
   const account = useSelector((state) => state.account);
