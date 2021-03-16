@@ -50,7 +50,6 @@ function Account() {
           getContentAnchorEl={null}
         >
           <MenuItem>Perfil</MenuItem>
-          <MenuItem>Meus Favoritos</MenuItem>
           <MenuItem>Meus Posts</MenuItem>
           <MenuItem>Minhas Conexões</MenuItem>
           <MenuItem onClick={handleSignOut}>Sair</MenuItem>
